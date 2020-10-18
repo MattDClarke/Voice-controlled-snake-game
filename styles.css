@@ -1,0 +1,479 @@
+/* Variables */
+html {
+  --grey: #fefefe;
+  --dark-grey: #c0c0c0;
+  --black: #2e2e2e;
+  --red: #ff002b;
+  --light-red: rgb(255, 59, 59);
+  --green: #41ffbd;
+  --box-shadow: 1px 4px 5px 1px rgb(0 0 0 / 35%);
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+}
+
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    font-size: 1rem;
+    line-height: 1.5;
+    justify-content: center;
+    align-content: center;
+    margin: 0;
+    background-color: black;
+    transition: all; 
+    animation:fadeInAnimation ease 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+    width: 16px
+}
+body::-webkit-scrollbar-track {
+    background: #000
+}
+body::-webkit-scrollbar-thumb {
+    background-color: var(--red);
+    border-radius: 6px
+}
+
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0.15;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#game-board {
+    background-color: #ccc;
+    /* keep game-board as wide as possible */
+    width: 100vmin;
+    height: 100vmin;
+    display: grid;
+    grid-template-rows: repeat(30, 1fr);
+    grid-template-columns: repeat(30, 1fr);
+    position: relative
+}
+
+.snake {
+  position: absolute;
+}
+
+.food {
+    position: absolute;s
+}
+
+
+
+
+
+/****************************  start menu ****************************/
+
+.modal-outer {
+  display: grid;
+  background: hsla(170, 100%, 46%, 0.7);
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  /* Hide the modal */
+  pointer-events: none;
+  transition: opacity 1s;
+}
+
+@media (max-height: 600px) {
+  .modal-outer {
+    align-items: start;
+  }
+}
+
+.modal-outer.open {
+  opacity: 1;
+  z-index: 2;
+  pointer-events: all;
+}
+
+.modal-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-width: 400px;
+  min-width: 200px;
+  max-height: 600px;
+  min-height: 200px;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  background: white;
+  transform: translateY(-200%);
+  transition: transform 2s;
+  /* overflow-y: auto; */
+}
+
+.modal-inner h1 {
+  width: 100%;
+  text-align: center;
+  font-size: clamp(1.2rem, 1vw + 1.2rem, 2rem);
+}
+
+h2 {
+   text-align: center;
+}
+
+.header-emoji {
+  font-size: clamp(1.2rem, 1vw + 1.5rem, 3rem);
+}
+
+.modal-outer.open .modal-inner {
+  transform: translateY(0);
+}
+
+button {
+  color: white;
+  background: var(--red);
+  padding: 1rem;
+  border: 2px solid var(--black);
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+   background: var(--light-red);
+}
+
+.button-start, .button-scores {
+  margin: 0.5rem 0.5rem;
+      color: white;
+      padding: 1rem;
+      border: 2px solid var(--black);
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight:600;
+}
+
+
+.button-start:hover, .button-scores:hover {
+  transform: scale(1.05);
+    box-shadow: 3px 4px 0px 1px rgba(0,0,0,0.3);
+}
+
+details {
+  width: 100%;
+}
+
+
+summary {
+  padding: 1em;
+  margin-bottom: 1em;
+  cursor: pointer;
+  background: var(--red);
+  color: white;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+summary:hover {
+  background: var(--light-red);
+}
+
+details[open] summary ~ * {
+  animation: sweep 0.5s ease-in-out;
+}
+
+@keyframes sweep {
+  from {
+    opacity: 0;
+    margin-top: -10px;
+  }
+  to {
+    opacity: 1;
+    margin-top: -0;
+  }
+}
+
+
+/****************************  Current game score ****************************/
+
+.game-info {
+  font-size: clamp(1rem, 1vw + 1rem, 2rem);
+  font-weight: 600;
+  position: fixed;
+  top: 0;
+  left: 50vw;
+  padding: 0.5rem;
+  opacity: 1;
+  display: grid;
+  grid-template-columns: 1fr 200px;
+}
+
+.current-score {
+  background-color: rgba(0,0,0,0);
+}
+
+.current-score {
+  border-radius: 10px 0 0 10px;
+}
+
+button:hover {
+  cursor: pointer;
+    background: rgb(255, 59, 59);
+  transition: all 0.5s;
+}
+
+/****************************  High Scores Modal ****************************/
+
+.modal-outer-scores {
+  display: grid;
+  background: hsla(170, 100%, 46%, 0.7);
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  /* Hide the modal */
+  pointer-events: none;
+  transition: opacity 1s;
+}
+
+@media (max-height: 600px) {
+  .modal-outer-scores {
+    align-items: start;
+  }
+}
+
+.modal-outer-scores.open {
+  opacity: 1;
+  z-index: 2;
+  pointer-events: all;
+  /* margin-top: 100px; */
+}
+
+.modal-inner-scores {
+  position: relative;
+  max-width: 650px;
+  min-width: 200px;
+  max-height: 500px;
+  min-height: 200px;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  background: white;
+  transform: translateY(-200%);
+  transition: transform 2s;
+  overflow-y: auto;
+}
+
+.modal-outer-scores.open .modal-inner-scores {
+  transform: translateY(0);
+
+
+}
+.modal-inner-scores::-webkit-scrollbar {
+    width: 16px
+}
+.modal-inner-scores::-webkit-scrollbar-track {
+    background: #000
+}
+.modal-inner-scores::-webkit-scrollbar-thumb {
+    background-color: var(--red);
+    border-radius: 6px
+}
+
+
+.crown-emoji {
+  font-size: 2rem;
+  animation: pulse 2s infinite; 
+}
+
+body > div.modal-outer-scores.open > div > span {
+  animation: pulse 2s infinite;
+}
+
+
+@keyframes pulse {
+    50% {
+        opacity: .5;
+    }
+}
+
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 14px;
+  padding: 0;
+  font-size: 3rem;
+  border: 0;
+  color: var(--black);
+  background-color: var(--grey);
+}
+
+.close:hover {
+  cursor: pointer;
+  background-color: var(--grey);
+
+}
+
+/****************************  Name Prompt ****************************/
+
+.popup {
+  background: rgba(45, 65, 58, 0.9);
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s;
+  transition: all 2.5s;
+}
+
+.popup fieldset {
+  background: rgb(233, 233, 233);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  
+}
+
+.popup.open {
+  opacity: 1;
+  pointer-events: all;
+  z-index: 2;
+  
+}
+
+.popup fieldset label {
+  font-size: clamp(1rem, 1vw + 1rem, 1.5rem);
+}
+
+
+input[type="text"] {
+  display: block;
+  padding: 1rem;
+  margin: 1rem auto;
+  /* margin: 1rem; */
+  border: 1px solid var(--black);
+}
+
+:focus {
+  outline-color: var(--black);
+}
+
+fieldset {
+  border: 1px solid black;
+}
+
+h2
+{
+  color: var(--black);
+  margin-top: 0;
+  line-height: 1;
+}
+
+
+/****************************  High scores list ****************************/
+
+.scores-list {
+  list-style: none;
+  margin: 1rem;
+  padding: 1rem;
+  counter-reset: my-awesome-counter;
+}
+
+.high-score-item {
+  padding: 1rem 0;
+  display: grid;
+  grid-template-columns: 40px 3fr 1fr auto;
+  grid-gap: 1rem;
+  align-items: center;
+  text-align: left;
+  border-bottom: 1px solid var(--dark-grey);
+  counter-increment: my-awesome-counter;
+}
+
+.high-score-item::before {
+  content: counter(my-awesome-counter) ". ";
+  color: rgb(207, 1, 1);
+  font-weight: bold;  
+}
+
+.high-score-item span {
+  padding-right: 2rem;
+}
+
+.high-score-item button {
+  padding: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border: 1px solid var(--black);
+}
+
+.delete-all-scores-btn {
+  margin-top: 2rem;
+}
+
+@media (max-width: 576px) {
+
+  .modal-inner-scores {
+    padding: 0;
+  }
+
+  .scores-list {
+    margin: 1rem;
+    padding: 0.5rem;
+  }
+
+  .high-score-item {
+    display: grid;
+    grid-template-columns: 20px 5fr 1fr auto;
+    grid-gap: 1rem;
+  }
+  .high-score-item span {
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 450px) {
+  .scores-list {
+    margin: 0.5rem;
+    padding: 0.5rem;
+  }  
+  .high-score-item {
+    display: grid;
+    grid-template-columns: 20px 10fr 1fr auto;
+    grid-gap: 0.5rem;
+  }
+  .high-score-item button {
+    padding: 0.25rem;
+    font-size: 0.8rem;
+  }
+}
+

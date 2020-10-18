@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <title>Voice Controlled Snake Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="game-board"></div>
+    <div class="game-info">
+        <span></span>
+        <span class="current-score">Score: <span class="score">
+    </div>
+    <div class="modal-outer open">
+        <div class="modal-inner">
+            <div class="header-emoji">🐍</div>
+            <h1>Voice Controlled Snake Game</h1>
+            <button class="button-start">Start Game</button>
+            <button class="button-scores">High Scores</button>
+            <details>
+                <summary>How to play</summary>
+                <div class="content">
+                    <p>Say <b>up</b>, <b>down</b>, <b>left</b> and <b>right</b> to move the snake.</p>
+                </div>
+            </details>
+        </div>
+    </div>
+    <div class="modal-outer-scores">
+        <div class="modal-inner-scores">
+            <button class="close">&times;</button>
+            <span class="crown-emoji">👑</span>
+            <h2>High Scores</h2>
+            <ol class="scores-list"></ol>
+        </div>
+    </div>
+    <script src="game.js" type="module"></script>
+</body>
+
+</html>
