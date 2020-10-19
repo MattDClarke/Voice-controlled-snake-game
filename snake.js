@@ -1,6 +1,7 @@
 import { getInputDirection } from './input.js';
 import { lastMealEmoji } from './game.js';
 
+let lastMealsList = ['👀'];
 export const SNAKE_SPEED = 5;
 // start pos
 export const snakeBody = [{ x: 15, y: 15 }];
@@ -22,6 +23,7 @@ export function update(gameOver) {
     newSegments = 0;
     // removeSegments
     snakeBody.splice(1);
+    lastMealsList = ['👀'];
     return;
   }
   addSegments();
@@ -38,17 +40,36 @@ export function update(gameOver) {
 }
 
 export function draw(gameBoard) {
-  snakeBody.forEach(segment => {
+  const { x } = getInputDirection();
+  const { y } = getInputDirection();
+  for (let i = 0; i < snakeBody.length; i += 1) {
     const snakeElement = document.createElement('div');
-    snakeElement.style.gridRowStart = segment.y;
-    snakeElement.style.gridColumnStart = segment.x;
+    snakeElement.style.gridRowStart = snakeBody[i].y;
+    snakeElement.style.gridColumnStart = snakeBody[i].x;
     snakeElement.classList.add('snake');
-    snakeElement.textContent = lastMealEmoji();
+    snakeElement.textContent = lastMealsList[i];
+    // rotate head
+    if (i === 0) {
+      snakeElement.style.zIndex = '1';
+      if (x === 1) {
+        snakeElement.style.transform = 'rotate(-90deg)';
+      }
+      if (x === -1) {
+        snakeElement.style.transform = 'rotate(90deg)';
+      }
+      if (y === 1) {
+        snakeElement.style.transform = 'rotate(0deg)';
+      }
+      if (y === -1) {
+        snakeElement.style.transform = 'rotate(180deg)';
+      }
+    }
     gameBoard.appendChild(snakeElement);
-  });
+  }
 }
 
 export function expandSnake(amount) {
+  lastMealsList.push(lastMealEmoji());
   newSegments += amount;
 }
 
@@ -73,5 +94,3 @@ export function getSnakeHead() {
 export function snakeIntersection() {
   return onSnake(snakeBody[0], { ignoreHead: true });
 }
-
-// lastMeal();

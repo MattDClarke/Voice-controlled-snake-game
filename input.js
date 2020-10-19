@@ -6,8 +6,6 @@ export function handleSpeechRecognitionResult({ results }) {
     .toLowerCase()
     .replace(/\s/g, '');
   console.log(words);
-  //   console.log(inputDirection);
-  //   console.log(lastInputDirection);
 
   // change direction depending on voice command
   switch (words) {

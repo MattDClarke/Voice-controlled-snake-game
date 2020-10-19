@@ -6,7 +6,6 @@ import {
   getSnakeHead,
   snakeIntersection,
 } from './snake.js';
-
 import {
   update as updateFood,
   draw as drawFood,
@@ -16,9 +15,7 @@ import {
   lastMeal,
 } from './food.js';
 import { outsideGrid } from './grid.js';
-
 import { handleSpeechRecognitionResult } from './input.js';
-
 import {
   buttonStart,
   modalOuter,
@@ -27,7 +24,6 @@ import {
   modalOuterScores,
   buttonClose,
 } from './elements.js';
-
 import { asyncMap } from './util.js';
 
 let lastRenderTime = 0;
@@ -69,12 +65,9 @@ async function main(currentTime) {
       ask
     );
     // gameOver = false;
-    // modalOuter.classList.add('open');
     if (name == '') {
       scoreEl.innerHTML = 0;
-      // window.location = '/';
       modalOuter.classList.add('open');
-      // gameOver = false;
       // reset snake and food pos and score
       update(gameOver);
       draw();
@@ -84,7 +77,6 @@ async function main(currentTime) {
     }
     // store scores, display scores and go back to main menu
     handleGameOver(name);
-    // window.location = '/';
     update(gameOver);
     draw();
     gameOver = false;
@@ -96,17 +88,10 @@ async function main(currentTime) {
   }
   // re-call immediately
   window.requestAnimationFrame(main);
-  //   console.log('currentTime', currentTime);
   const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000;
-  //   console.log('secondsSinceLastRender', secondsSinceLastRender);
-
   // make sure u dnt update too often
   if (secondsSinceLastRender < 1 / SNAKE_SPEED) return;
-
-  // console.log('Render');
   lastRenderTime = currentTime;
-  //   console.log('lastRenderTime', lastRenderTime);
-
   // update all logic for the game
   update();
   draw();
@@ -119,7 +104,6 @@ function start() {
   }
   // Make a new speech recognition object
   recognition = new SpeechRecognition();
-  // console.log(recognition);
   recognition.continuous = true;
   recognition.interimResults = true;
   // event listener

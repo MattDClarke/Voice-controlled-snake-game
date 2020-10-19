@@ -3,7 +3,7 @@ import { randomGridPosition } from './grid.js';
 import { scoreEl, scoresList, modalOuterScores } from './elements.js';
 import { wait } from './util';
 
-let foodEmoji = '😂';
+let foodEmoji;
 const emojis = [
   '🚶‍♀️',
   '🚶‍♂️',
@@ -23,6 +23,9 @@ const emojis = [
   '🥝',
   '🍏',
   '🍎',
+  '🍔',
+  '🍅',
+  '🦇',
 ];
 
 function randomElementFromArray(arr) {
@@ -31,7 +34,6 @@ function randomElementFromArray(arr) {
 }
 
 export function lastMeal() {
-  console.log(foodEmoji);
   return foodEmoji;
 }
 

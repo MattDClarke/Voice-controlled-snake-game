@@ -1,33 +1,33 @@
-/* Variables */
 html {
+  --white: white;
   --grey: #fefefe;
   --dark-grey: #c0c0c0;
   --black: #2e2e2e;
   --red: #ff002b;
   --light-red: rgb(255, 59, 59);
-  --green: #41ffbd;
+  --green: rgb(0, 245, 0);
   --box-shadow: 1px 4px 5px 1px rgb(0 0 0 / 35%);
-  font-size: 16px;
+  font-size: var(--font-size);
   font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
 }
 
-
 body {
     height: 100vh;
     width: 100vw;
+    overflow-x: hidden;
+    overflow-y: hidden;
     display: flex;
     font-size: 1rem;
     line-height: 1.5;
     justify-content: center;
     align-content: center;
     margin: 0;
-    background-color: black;
+    background-color: var(--black);
     transition: all; 
     animation:fadeInAnimation ease 2s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
-    overflow-x: hidden;
 }
 
 body::-webkit-scrollbar {
@@ -41,44 +41,43 @@ body::-webkit-scrollbar-thumb {
     border-radius: 6px
 }
 
-
 @keyframes fadeInAnimation {
-    0% {
-        opacity: 0.15;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+      opacity: 0.15;
+  }
+  100% {
+      opacity: 1;
+  }
 }
 
 #game-board {
-    background-color: #ccc;
-    /* keep game-board as wide as possible */
-    width: 100vmin;
-    height: 100vmin;
-    display: grid;
-    grid-template-rows: repeat(30, 1fr);
-    grid-template-columns: repeat(30, 1fr);
-    position: relative
+  background-color: var(--grey);
+  /* keep game-board as wide as possible */
+  width: 100vmin;
+  height: 100vmin;
+  display: grid;
+  grid-template-rows: repeat(30, 1fr);
+  grid-template-columns: repeat(30, 1fr);
+  position: relative
 }
 
 .snake {
   position: absolute;
+  background-color: var(--green);
+  border-radius: 5px;
+  font-size: clamp(0.5rem, 1vw + 0.5rem, 1.4rem);
 }
 
 .food {
-    position: absolute;s
+  position: absolute;
+  font-size: clamp(0.5rem, 1vw + 0.5rem, 1.4rem);
 }
-
-
-
-
 
 /****************************  start menu ****************************/
 
 .modal-outer {
   display: grid;
-  background: hsla(170, 100%, 46%, 0.7);
+  background: hsla(170, 100%, 46%, 1);
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -114,13 +113,12 @@ body::-webkit-scrollbar-thumb {
   min-width: 200px;
   max-height: 600px;
   min-height: 200px;
-  padding: 2rem;
+  padding: clamp(1.2rem, 1vw + 1.2rem, 2rem);
   border-radius: 10px;
   box-shadow: var(--box-shadow);
   background: white;
   transform: translateY(-200%);
   transition: transform 2s;
-  /* overflow-y: auto; */
 }
 
 .modal-inner h1 {
@@ -142,7 +140,7 @@ h2 {
 }
 
 button {
-  color: white;
+  color: var(--white);
   background: var(--red);
   padding: 1rem;
   border: 2px solid var(--black);
@@ -155,36 +153,34 @@ button {
 
 button:hover {
   transform: scale(1.05);
-   background: var(--light-red);
+  background: var(--light-red);
 }
 
 .button-start, .button-scores {
   margin: 0.5rem 0.5rem;
-      color: white;
-      padding: 1rem;
-      border: 2px solid var(--black);
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight:600;
+  color: var(--white);
+  padding: 1rem;
+  border: 2px solid var(--black);
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight:600;
 }
-
 
 .button-start:hover, .button-scores:hover {
   transform: scale(1.05);
-    box-shadow: 3px 4px 0px 1px rgba(0,0,0,0.3);
+  box-shadow: 3px 4px 0px 1px rgba(0,0,0,0.3);
 }
+
 
 details {
   width: 100%;
 }
 
-
 summary {
   padding: 1em;
   margin-bottom: 1em;
   cursor: pointer;
-  background: var(--red);
-  color: white;
+  border: 1px solid black;
   border-radius: 5px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -192,7 +188,7 @@ summary {
 }
 
 summary:hover {
-  background: var(--light-red);
+  background: rgb(221, 221, 221);
 }
 
 details[open] summary ~ * {
@@ -202,14 +198,13 @@ details[open] summary ~ * {
 @keyframes sweep {
   from {
     opacity: 0;
-    margin-top: -10px;
+    margin-top: -30px;
   }
   to {
     opacity: 1;
-    margin-top: -0;
+    margin-top: 0;
   }
 }
-
 
 /****************************  Current game score ****************************/
 
@@ -267,7 +262,6 @@ button:hover {
   opacity: 1;
   z-index: 2;
   pointer-events: all;
-  /* margin-top: 100px; */
 }
 
 .modal-inner-scores {
@@ -288,8 +282,6 @@ button:hover {
 
 .modal-outer-scores.open .modal-inner-scores {
   transform: translateY(0);
-
-
 }
 .modal-inner-scores::-webkit-scrollbar {
     width: 16px
@@ -302,7 +294,6 @@ button:hover {
     border-radius: 6px
 }
 
-
 .crown-emoji {
   font-size: 2rem;
   animation: pulse 2s infinite; 
@@ -312,13 +303,11 @@ body > div.modal-outer-scores.open > div > span {
   animation: pulse 2s infinite;
 }
 
-
 @keyframes pulse {
-    50% {
-        opacity: .5;
-    }
+  50% {
+      opacity: .5;
+  }
 }
-
 
 .close {
   position: absolute;
@@ -334,7 +323,6 @@ body > div.modal-outer-scores.open > div > span {
 .close:hover {
   cursor: pointer;
   background-color: var(--grey);
-
 }
 
 /****************************  Name Prompt ****************************/
@@ -360,26 +348,22 @@ body > div.modal-outer-scores.open > div > span {
   border-radius: 10px;
   box-shadow: var(--box-shadow);
   text-align: center;
-  
 }
 
 .popup.open {
   opacity: 1;
   pointer-events: all;
   z-index: 2;
-  
 }
 
 .popup fieldset label {
   font-size: clamp(1rem, 1vw + 1rem, 1.5rem);
 }
 
-
 input[type="text"] {
   display: block;
   padding: 1rem;
   margin: 1rem auto;
-  /* margin: 1rem; */
   border: 1px solid var(--black);
 }
 
@@ -397,7 +381,6 @@ h2
   margin-top: 0;
   line-height: 1;
 }
-
 
 /****************************  High scores list ****************************/
 
@@ -441,16 +424,13 @@ h2
 }
 
 @media (max-width: 576px) {
-
   .modal-inner-scores {
     padding: 0;
   }
-
   .scores-list {
     margin: 1rem;
     padding: 0.5rem;
   }
-
   .high-score-item {
     display: grid;
     grid-template-columns: 20px 5fr 1fr auto;
