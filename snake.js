@@ -2,7 +2,6 @@ import { getInputDirection } from './input.js';
 import { lastMealEmoji } from './game.js';
 
 let lastMealsList = ['👀'];
-export const SNAKE_SPEED = 5;
 // start pos
 export const snakeBody = [{ x: 15, y: 15 }];
 let newSegments = 0;
@@ -28,6 +27,7 @@ export function update(gameOver) {
   }
   addSegments();
   const inputDirection = getInputDirection();
+  // console.log(inputDirection);
   // start from 2nd last segment of snake, and loop back to front
   for (let i = snakeBody.length - 2; i >= 0; i -= 1) {
     // i + 1 = last element

@@ -1,6 +1,5 @@
 import { ask } from './lib.js';
 import {
-  SNAKE_SPEED,
   update as updateSnake,
   draw as drawSnake,
   getSnakeHead,
@@ -15,7 +14,7 @@ import {
   lastMeal,
 } from './food.js';
 import { outsideGrid } from './grid.js';
-import { handleSpeechRecognitionResult } from './input.js';
+import { handleSpeechRecognitionResult, checkSnakeSpeed } from './input.js';
 import {
   buttonStart,
   modalOuter,
@@ -90,7 +89,7 @@ async function main(currentTime) {
   window.requestAnimationFrame(main);
   const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000;
   // make sure u dnt update too often
-  if (secondsSinceLastRender < 1 / SNAKE_SPEED) return;
+  if (secondsSinceLastRender < 1 / checkSnakeSpeed()) return;
   lastRenderTime = currentTime;
   // update all logic for the game
   update();

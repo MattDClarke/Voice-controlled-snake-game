@@ -12,3 +12,7 @@ export async function asyncMap(array, callback) {
   }
   return results;
 }
+
+export function clamp(val, min, max) {
+  return val > max ? max : val < min ? min : val;
+}

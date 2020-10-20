@@ -1,6 +1,5 @@
 export const scoreEl = document.querySelector('.score');
 export const buttonStart = document.querySelector('.button-start');
-export const modalInner = document.querySelector('.modal-inner');
 export const modalOuter = document.querySelector('.modal-outer');
 export const buttonScores = document.querySelector('.button-scores');
 export const scoresList = document.querySelector('.scores-list');
